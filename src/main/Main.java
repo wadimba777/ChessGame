@@ -1,3 +1,6 @@
+package main;
+
+import main.Board;
 
 import javax.swing.*;
 import java.awt.*;

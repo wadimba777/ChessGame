@@ -4,8 +4,8 @@ import main.Board;
 
 import java.awt.image.BufferedImage;
 
-public class Bishop extends Piece{
-    public Bishop(Board board, int col, int row, boolean isWhite){
+public class Bishop extends Piece {
+    public Bishop(Board board, int col, int row, boolean isWhite) {
         super(board);
         this.col = col;
         this.row = row;
@@ -17,9 +17,11 @@ public class Bishop extends Piece{
 
         this.sprite = sheet.getSubimage(2 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.titleSize, board.titleSize, BufferedImage.SCALE_SMOOTH);
     }
+
     public boolean isValidMovement(int col, int row) {
         return Math.abs(this.col - col) == Math.abs(this.row - row);
     }
+
     public boolean moveCollidesWithPiece(int col, int row) {
         //up left
         if (this.col > col && this.row > row)

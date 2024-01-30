@@ -43,5 +43,4 @@ public class Piece {
 
         g2d.drawImage(sprite, xPos, yPos, null);
     }
-
 }

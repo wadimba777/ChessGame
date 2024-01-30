@@ -8,7 +8,7 @@ public class Main {
 
         JFrame frame = new JFrame();
         frame.setLayout(new GridBagLayout());
-        frame.setMinimumSize(new Dimension(1000, 1000));
+        frame.setMinimumSize(new Dimension(850, 850));
         frame.setLocationRelativeTo(null);
 
         Board board = new Board();

@@ -107,10 +107,7 @@ public class Board extends JPanel {
         if (move.piece.moveCollidesWithPiece(move.newCol, move.newRow)) {
             return false;
         }
-        if (checkScanner.isKingChecked(move)) {
-            return false;
-        }
-        return true;
+        return !checkScanner.isKingChecked(move);
     }
 
     public boolean sameTeam(Piece p1, Piece p2) {
@@ -138,12 +135,12 @@ public class Board extends JPanel {
     public void addPieces(){
         pieceList.add(new King(this, 4, 0, false));
         pieceList.add(new Queen(this, 3, 0, false));
-        pieceList.add(new Knight(this, 2, 0, false));
-        pieceList.add(new Knight(this, 5, 0, false));
+        pieceList.add(new Knight(this, 1, 0, false));
+        pieceList.add(new Knight(this, 6, 0, false));
         pieceList.add(new Rook(this, 7, 0, false));
         pieceList.add(new Rook(this, 0, 0, false));
-        pieceList.add(new Bishop(this, 1, 0, false));
-        pieceList.add(new Bishop(this, 6, 0, false));
+        pieceList.add(new Bishop(this, 2, 0, false));
+        pieceList.add(new Bishop(this, 5, 0, false));
 
         pieceList.add(new Pawn(this, 0, 1, false));
         pieceList.add(new Pawn(this, 1, 1, false));
@@ -156,12 +153,12 @@ public class Board extends JPanel {
 
         pieceList.add(new King(this, 4, 7, true));
         pieceList.add(new Queen(this, 3, 7, true));
-        pieceList.add(new Knight(this, 2, 7, true));
-        pieceList.add(new Knight(this, 5, 7, true));
+        pieceList.add(new Knight(this, 1, 7, true));
+        pieceList.add(new Knight(this, 6, 7, true));
         pieceList.add(new Rook(this, 7, 7, true));
         pieceList.add(new Rook(this, 0, 7, true));
-        pieceList.add(new Bishop(this, 1, 7, true));
-        pieceList.add(new Bishop(this, 6, 7, true));
+        pieceList.add(new Bishop(this, 2, 7, true));
+        pieceList.add(new Bishop(this, 5, 7, true));
 
         pieceList.add(new Pawn(this, 0, 6, true));
         pieceList.add(new Pawn(this, 1, 6, true));
@@ -188,7 +185,7 @@ public class Board extends JPanel {
             for (int r = 0; r < rows; r++)
                 for (int c = 0; c < cols; c++)
                     if (isValidMove(new Move(this, selectedPiece, c, r))) {
-                        g2d.setColor(new Color(127, 218, 82, 215));
+                        g2d.setColor(new Color(77, 225, 40, 147));
                         g2d.fillRect(c * titleSize, r * titleSize, titleSize, titleSize);
                     }
         }

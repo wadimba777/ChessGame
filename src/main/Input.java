@@ -15,8 +15,8 @@ public class Input extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        int col = e.getX() / board.titleSize;
-        int row = e.getY() / board.titleSize;
+        int col = e.getX() / board.TITLE_SIZE;
+        int row = e.getY() / board.TITLE_SIZE;
 
         Piece pieceXY = board.getPiece(col, row);
         if (pieceXY != null) {
@@ -27,8 +27,8 @@ public class Input extends MouseAdapter {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (board.selectedPiece != null) {
-            board.selectedPiece.xPos = e.getX() - board.titleSize / 2;
-            board.selectedPiece.yPos = e.getY() - board.titleSize / 2;
+            board.selectedPiece.setxPos(e.getX() - board.TITLE_SIZE / 2);
+            board.selectedPiece.setyPos(e.getY() - board.TITLE_SIZE / 2);
 
             board.repaint();
         }
@@ -36,8 +36,8 @@ public class Input extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        int col = e.getX() / board.titleSize;
-        int row = e.getY() / board.titleSize;
+        int col = e.getX() / board.TITLE_SIZE;
+        int row = e.getY() / board.TITLE_SIZE;
 
         if (board.selectedPiece != null) {
             Move move = new Move(board, board.selectedPiece, col, row);
@@ -45,14 +45,11 @@ public class Input extends MouseAdapter {
             if (board.isValidMove(move)) {
                 board.makeMove(move);
             } else {
-                board.selectedPiece.xPos = board.selectedPiece.col * board.titleSize;
-                board.selectedPiece.yPos = board.selectedPiece.row * board.titleSize;
+                board.selectedPiece.setxPos(board.selectedPiece.getCol() * board.TITLE_SIZE);
+                board.selectedPiece.setyPos(board.selectedPiece.getRow() * board.TITLE_SIZE);
             }
-
             board.selectedPiece = null;
             board.repaint();
         }
-
     }
-
 }

@@ -6,41 +6,40 @@ import java.awt.image.BufferedImage;
 public class Pawn extends Piece{
     public Pawn(Board board, int col, int row, boolean isWhite){
         super(board);
-        this.col = col;
-        this.row = row;
-        this.xPos = col * board.titleSize;
-        this.yPos = row * board.titleSize;
+        this.setCol(col);
+        this.setRow(row);
+        this.setxPos(col * board.TITLE_SIZE);
+        this.setyPos(row * board.TITLE_SIZE);
 
-        this.isWhite = isWhite;
-        this.name = "Pawn";
+        this.setWhite(isWhite);
+        this.setName("Pawn");
 
-        this.sprite = sheet.getSubimage(5 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.titleSize, board.titleSize, BufferedImage.SCALE_SMOOTH);
+        this.sprite = sheet.getSubimage(5 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.TITLE_SIZE, board.TITLE_SIZE, BufferedImage.SCALE_SMOOTH);
     }
     public boolean isValidMovement(int col, int row) {
-        int colorIndex = isWhite ? 1 : -1;
+        int colorIndex = isWhite() ? 1 : -1;
 
         //push pawn 1
-        if (this.col == col && row == this.row - colorIndex && board.getPiece(col, row) == null)
+        if (this.getCol() == col && row == this.getRow() - colorIndex && board.getPiece(col, row) == null)
             return true;
         //push pawn 2
-        if (isFirstMove && this.col == col && row == this.row - colorIndex * 2 && board.getPiece(col, row) == null && board.getPiece(col, row + colorIndex) == null)
+        if (isFirstMove && this.getCol() == col && row == this.getRow() - colorIndex * 2 && board.getPiece(col, row) == null && board.getPiece(col, row + colorIndex) == null)
             return true;
         //capture left
-        if (col == this.col - 1 && row == this.row - colorIndex && board.getPiece(col, row) != null)
+        if (col == this.getCol() - 1 && row == this.getRow() - colorIndex && board.getPiece(col, row) != null)
             return true;
         //capture right
-        if (col == this.col + 1 && row == this.row - colorIndex && board.getPiece(col, row) != null)
+        if (col == this.getCol() + 1 && row == this.getRow() - colorIndex && board.getPiece(col, row) != null)
             return true;
 
         //en passant left
-        if (board.getTileNum(col, row) == board.enPassantTile && col == this.col - 1 && row == this.row - colorIndex && board.getPiece(col, row + colorIndex) != null) {
+        if (board.getTileNum(col, row) == board.getEnPassantTile() && col == this.getCol() - 1 && row == this.getRow() - colorIndex && board.getPiece(col, row + colorIndex) != null) {
             return true;
         }
         //en passant right
-        if (board.getTileNum(col, row) == board.enPassantTile && col == this.col + 1 && row == this.row - colorIndex && board.getPiece(col, row + colorIndex) != null) {
+        if (board.getTileNum(col, row) == board.getEnPassantTile() && col == this.getCol() + 1 && row == this.getRow() - colorIndex && board.getPiece(col, row + colorIndex) != null) {
             return true;
         }
         return false;
-
     }
 }

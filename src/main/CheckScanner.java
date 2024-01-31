@@ -10,31 +10,29 @@ public class CheckScanner {
     }
 
     public boolean isKingChecked(Move move) {
-
-        Piece king = board.findKing(move.piece.isWhite);
+        Piece king = board.findKing(move.piece.isWhite());
         assert king != null;
 
-        int kingCol = king.col;
-        int kingRow = king.row;
+        int kingCol = king.getCol();
+        int kingRow = king.getRow();
 
-        if (board.selectedPiece != null && board.selectedPiece.name.equals("King")) {
-            kingCol = move.newCol;
-            kingRow = move.newRow;
+        if (board.selectedPiece != null && board.selectedPiece.getName().equals("King")) {
+            kingCol = move.getNewCol();
+            kingRow = move.getNewRow();
         }
 
+        return hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, 1) ||    //up
+                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 0) ||    //right
+                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, -1) ||   //down
+                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 0) ||   //left
 
-        return hitByRook(move.newCol, move.newRow, king, kingCol, kingRow, 0, 1) ||    //up
-                hitByRook(move.newCol, move.newRow, king, kingCol, kingRow, 1, 0) ||    //right
-                hitByRook(move.newCol, move.newRow, king, kingCol, kingRow, 0, -1) ||   //down
-                hitByRook(move.newCol, move.newRow, king, kingCol, kingRow, -1, 0) ||   //left
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, -1) ||  //up left
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, -1) ||   //up right
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 1) ||    //down right
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 1) ||   //down left
 
-                hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, -1, -1) ||  //up left
-                hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, 1, -1) ||   //up right
-                hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, 1, 1) ||    //down right
-                hitByBishop(move.newCol, move.newRow, king, kingCol, kingRow, -1, 1) ||   //down left
-
-                hitByKnight(move.newCol, move.newRow, king, kingCol, kingRow) ||
-                hitByPawn(move.newCol, move.newRow, king, kingCol, kingRow) ||
+                hitByKnight(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) ||
+                hitByPawn(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) ||
                 hitByKing(king, kingCol, kingRow);
 
     }
@@ -47,7 +45,7 @@ public class CheckScanner {
 
             Piece piece = board.getPiece(kingCol + (i * colVal), kingRow + (i * rowVal));
             if (piece != null && piece != board.selectedPiece) {
-                if (!board.sameTeam(piece, king) && (piece.name.equals("Rook") || piece.name.equals("Queen"))) {
+                if (!board.sameTeam(piece, king) && (piece.getName().equals("Rook") || piece.getName().equals("Queen"))) {
                     return true;
                 }
                 break;
@@ -63,7 +61,7 @@ public class CheckScanner {
             }
             Piece piece = board.getPiece(kingCol - (i * colVal), kingRow - (i * rowVal));
             if (piece != null && piece != board.selectedPiece) {
-                if (!board.sameTeam(piece, king) && (piece.name.equals("Bishop") || piece.name.equals("Queen"))) {
+                if (!board.sameTeam(piece, king) && (piece.getName().equals("Bishop") || piece.getName().equals("Queen"))) {
                     return true;
                 }
                 break;
@@ -84,7 +82,7 @@ public class CheckScanner {
     }
 
     private boolean checkKnight(Piece p, Piece k, int col, int row) {
-        return p != null && !board.sameTeam(p, k) && p.name.equals("Knight") && !(p.col == col && p.row == row);
+        return p != null && !board.sameTeam(p, k) && p.getName().equals("Knight") && !(p.getCol() == col && p.getRow() == row);
     }
 
     private boolean hitByKing(Piece king, int kingCol, int kingRow) {
@@ -99,16 +97,16 @@ public class CheckScanner {
     }
 
     private boolean checkKing(Piece p, Piece k) {
-        return p != null && !board.sameTeam(p, k) && p.name.equals("King");
+        return p != null && !board.sameTeam(p, k) && p.getName().equals("King");
     }
 
     private boolean hitByPawn(int col, int row, Piece king, int kingCol, int kingRow) {
-        int colorVal = king.isWhite ? -1 : 1;
+        int colorVal = king.isWhite() ? -1 : 1;
         return checkPawn(board.getPiece(kingCol + 1, kingRow + colorVal), king, col, row) ||
                 checkPawn(board.getPiece(kingCol - 1, kingRow + colorVal), king, col, row);
     }
 
     private boolean checkPawn(Piece p, Piece k, int col, int row) {
-            return p != null && !board.sameTeam(p, k) && p.name.equals("Pawn") && !(p.col == col && p.row == row);
+        return p != null && !board.sameTeam(p, k) && p.getName().equals("Pawn") && !(p.getCol() == col && p.getRow() == row);
     }
 }

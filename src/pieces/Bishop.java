@@ -7,41 +7,41 @@ import java.awt.image.BufferedImage;
 public class Bishop extends Piece {
     public Bishop(Board board, int col, int row, boolean isWhite) {
         super(board);
-        this.col = col;
-        this.row = row;
-        this.xPos = col * board.titleSize;
-        this.yPos = row * board.titleSize;
+        setCol(col);
+        setRow(row);
+        this.setxPos(col * board.TITLE_SIZE);
+        this.setyPos(row * board.TITLE_SIZE);
 
-        this.isWhite = isWhite;
-        this.name = "Bishop";
+        this.setWhite(isWhite);
+        this.setName("Bishop");
 
-        this.sprite = sheet.getSubimage(2 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.titleSize, board.titleSize, BufferedImage.SCALE_SMOOTH);
+        this.sprite = sheet.getSubimage(2 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.TITLE_SIZE, board.TITLE_SIZE, BufferedImage.SCALE_SMOOTH);
     }
 
     public boolean isValidMovement(int col, int row) {
-        return Math.abs(this.col - col) == Math.abs(this.row - row);
+        return Math.abs(getCol() - col) == Math.abs(getRow() - row);
     }
 
     public boolean moveCollidesWithPiece(int col, int row) {
         //up left
-        if (this.col > col && this.row > row)
-            for (int i = 1; i < Math.abs(this.col - col); i++)
-                if (board.getPiece(this.col - i, this.row - i) != null)
+        if (this.getCol() > col && this.getRow() > row)
+            for (int i = 1; i < Math.abs(this.getCol() - col); i++)
+                if (board.getPiece(this.getCol() - i, this.getRow() - i) != null)
                     return true;
         //up right
-        if (this.col < col && this.row > row)
-            for (int i = 1; i < Math.abs(this.col - col); i++)
-                if (board.getPiece(this.col + i, this.row - i) != null)
+        if (this.getCol() < col && this.getRow() > row)
+            for (int i = 1; i < Math.abs(this.getCol() - col); i++)
+                if (board.getPiece(this.getCol() + i, this.getRow() - i) != null)
                     return true;
         //down left
-        if (this.col > col && this.row < row)
-            for (int i = 1; i < Math.abs(this.col - col); i++)
-                if (board.getPiece(this.col - i, this.row + i) != null)
+        if (this.getCol() > col && this.getRow() < row)
+            for (int i = 1; i < Math.abs(this.getCol() - col); i++)
+                if (board.getPiece(this.getCol() - i, this.getRow() + i) != null)
                     return true;
         //down right
-        if (this.col < col && this.row < row)
-            for (int i = 1; i < Math.abs(this.col - col); i++)
-                if (board.getPiece(this.col + i, this.row + i) != null)
+        if (this.getCol() < col && this.getRow() < row)
+            for (int i = 1; i < Math.abs(this.getCol() - col); i++)
+                if (board.getPiece(this.getCol() + i, this.getRow() + i) != null)
                     return true;
         return false;
     }

@@ -35,7 +35,6 @@ public abstract class Piece {
         return board;
     }
 
-
     public void setSprite(Image sprite) {
         this.sprite = sprite;
     }

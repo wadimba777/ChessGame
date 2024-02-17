@@ -21,7 +21,9 @@ public class King extends Piece {
 
     @Override
     public boolean isValidMovement(int col, int row) {
-        return Math.abs((col - this.getCol()) * (row - this.getRow())) == 1 || Math.abs(col - this.getCol()) + Math.abs(row - this.getRow()) == 1 || canCastle(col, row);
+        return Math.abs((col - this.getCol()) * (row - this.getRow())) == 1
+                || Math.abs(col - this.getCol()) + Math.abs(row - this.getRow()) == 1
+                || canCastle(col, row);
     }
 
     private boolean canCastle(int col, int row) {

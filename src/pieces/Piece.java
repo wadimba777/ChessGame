@@ -1,19 +1,50 @@
 package pieces;
 
-import main.Board;
+import logic.Board;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
-public class Piece {
+public abstract class Piece {
     private int col;
     private int row;
     private int xPos, yPos;
-
     private boolean isWhite;
     private String name;
+    private BufferedImage sheet;
+    private Image sprite;
+    private final Board board;
+    private boolean isFirstMove = true;
+
+    public Piece(Board board) {
+        this.board = board;
+    }
+
+    {
+        try {
+            this.sheet = ImageIO.read(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("pieces.png")));
+        } catch (IOException e) {
+            System.out.println("No such a file " + e);
+        }
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+
+    public void setSprite(Image sprite) {
+        this.sprite = sprite;
+    }
+
+    public BufferedImage getSheet() {
+        return sheet;
+    }
+
+    protected int sheetScale = sheet.getWidth() / 6;
 
     public boolean isWhite() {
         return isWhite;
@@ -23,7 +54,13 @@ public class Piece {
         isWhite = white;
     }
 
-    public boolean isFirstMove = true;
+    public boolean isFirstMove() {
+        return isFirstMove;
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        isFirstMove = firstMove;
+    }
 
     public int getCol() {
         return col;
@@ -57,28 +94,16 @@ public class Piece {
         this.name = name;
     }
 
-    BufferedImage sheet;
-    {
-        try {
-            sheet = ImageIO.read(ClassLoader.getSystemResourceAsStream("pieces.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    protected int sheetScale = sheet.getWidth()/6;
 
-    Image sprite;
-
-    Board board;
-
-    public Piece(Board board) {
-        this.board = board;
+    public boolean isValidMovement(int col, int row) {
+        return true;
     }
 
-    public boolean isValidMovement(int col, int row) {return true;}
-    public boolean moveCollidesWithPiece(int col, int row) {return false;}
+    public boolean moveCollidesWithPiece(int col, int row) {
+        return false;
+    }
 
-    public void paint (Graphics2D g2d){
+    public void paint(Graphics2D g2d) {
         g2d.drawImage(sprite, xPos, yPos, null);
     }
 }

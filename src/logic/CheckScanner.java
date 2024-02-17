@@ -1,39 +1,37 @@
-package main;
+package logic;
 
 import pieces.Piece;
-
 public class CheckScanner {
-    Board board;
+    private final Board board;
 
     public CheckScanner(Board board) {
         this.board = board;
     }
-
     public boolean isKingChecked(Move move) {
-        Piece king = board.findKing(move.piece.isWhite());
+        Piece king = board.findKing(move.getPiece().isWhite());
         assert king != null;
 
         int kingCol = king.getCol();
         int kingRow = king.getRow();
 
-        if (board.selectedPiece != null && board.selectedPiece.getName().equals("King")) {
+        if (board.getSelectedPiece() != null && board.getSelectedPiece().getName().equals("King")) {
             kingCol = move.getNewCol();
             kingRow = move.getNewRow();
         }
 
-        return hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, 1) ||    //up
-                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 0) ||    //right
-                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, -1) ||   //down
-                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 0) ||   //left
+        return !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, 1) &&     //up
+                !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 0) &&    //right
+                !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, -1) &&   //down
+                !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 0) &&   //left
 
-                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, -1) ||  //up left
-                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, -1) ||   //up right
-                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 1) ||    //down right
-                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 1) ||   //down left
+                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, -1) &&  //up left
+                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, -1) &&   //up right
+                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 1) &&    //down right
+                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 1) &&   //down left
 
-                hitByKnight(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) ||
-                hitByPawn(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) ||
-                hitByKing(king, kingCol, kingRow);
+                !hitByKnight(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) &&
+                !hitByPawn(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) &&
+                !hitByKing(king, kingCol, kingRow);
 
     }
 
@@ -44,7 +42,7 @@ public class CheckScanner {
             }
 
             Piece piece = board.getPiece(kingCol + (i * colVal), kingRow + (i * rowVal));
-            if (piece != null && piece != board.selectedPiece) {
+            if (piece != null && piece != board.getSelectedPiece()) {
                 if (!board.sameTeam(piece, king) && (piece.getName().equals("Rook") || piece.getName().equals("Queen"))) {
                     return true;
                 }
@@ -60,7 +58,7 @@ public class CheckScanner {
                 break;
             }
             Piece piece = board.getPiece(kingCol - (i * colVal), kingRow - (i * rowVal));
-            if (piece != null && piece != board.selectedPiece) {
+            if (piece != null && piece != board.getSelectedPiece()) {
                 if (!board.sameTeam(piece, king) && (piece.getName().equals("Bishop") || piece.getName().equals("Queen"))) {
                     return true;
                 }

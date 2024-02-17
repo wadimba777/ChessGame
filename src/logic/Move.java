@@ -1,4 +1,4 @@
-package main;
+package logic;
 
 import pieces.Piece;
 
@@ -15,8 +15,24 @@ public class Move {
         return newRow;
     }
 
-    Piece piece;
-    Piece capture;
+    private Piece piece;
+    private Piece capture;
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public Piece getCapture() {
+        return capture;
+    }
+
+    public void setCapture(Piece capture) {
+        this.capture = capture;
+    }
 
     public Move(Board board, Piece piece, int newCol, int newRow) {
         this.newCol = newCol;

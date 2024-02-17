@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 
 
 public class Input extends MouseAdapter {
-    Board board;
+    private final Board board;
 
     public Input(Board board) {
         this.board = board;

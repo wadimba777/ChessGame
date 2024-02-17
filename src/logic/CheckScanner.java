@@ -1,12 +1,14 @@
 package logic;
 
 import pieces.Piece;
+
 public class CheckScanner {
     private final Board board;
 
     public CheckScanner(Board board) {
         this.board = board;
     }
+
     public boolean isKingChecked(Move move) {
         Piece king = board.findKing(move.getPiece().isWhite());
         assert king != null;

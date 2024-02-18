@@ -1,20 +1,17 @@
 package pieces;
 
 import logic.Board;
+import utils.ImageManager;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 
-public abstract class Piece {
+public abstract class Piece extends ImageManager {
     private int col;
     private int row;
     private int xPos, yPos;
     private boolean isWhite;
     private String name;
-    private BufferedImage sheet;
     private Image sprite;
     private final Board board;
     private boolean isFirstMove = true;
@@ -23,29 +20,15 @@ public abstract class Piece {
         this.board = board;
     }
 
-    {
-        try {
-            this.sheet = ImageIO.read(Objects.requireNonNull(ClassLoader.getSystemResourceAsStream("pieces.png")));
-        } catch (IOException e) {
-            System.out.println("No such a file " + e);
-        }
-    }
-
     public Board getBoard() {
         return board;
     }
 
     public void setSprite(int pieceOrdinal, boolean isWhite) {
         this.sprite = getSheet()
-                .getSubimage(pieceOrdinal * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale)
+                .getSubimage(pieceOrdinal * getSheetScale(), isWhite ? 0 : getSheetScale(), getSheetScale(), getSheetScale())
                 .getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH);
     }
-
-    public BufferedImage getSheet() {
-        return sheet;
-    }
-
-    protected int sheetScale = sheet.getWidth() / 6;
 
     public boolean isWhite() {
         return isWhite;

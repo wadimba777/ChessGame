@@ -14,11 +14,7 @@ public class ImageManager {
             System.out.println("No such a file " + e);
         }
     }
-    private final int sheetScale = sheet.getWidth() / 6;
-
-    public int getSheetScale() {
-        return sheetScale;
-    }
+    protected final int sheetScale = sheet.getWidth() / 6;
 
     public BufferedImage getSheet() {
         return sheet;

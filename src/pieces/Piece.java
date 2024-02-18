@@ -26,7 +26,7 @@ public abstract class Piece extends ImageManager {
 
     public void setSprite(int pieceOrdinal, boolean isWhite) {
         this.sprite = getSheet()
-                .getSubimage(pieceOrdinal * getSheetScale(), isWhite ? 0 : getSheetScale(), getSheetScale(), getSheetScale())
+                .getSubimage(pieceOrdinal * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale)
                 .getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH);
     }
 

@@ -95,7 +95,6 @@ public abstract class Piece {
         this.name = name;
     }
 
-
     public boolean isValidMovement(int col, int row) {
         return true;
     }

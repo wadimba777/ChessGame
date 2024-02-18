@@ -21,15 +21,15 @@ public class CheckScanner {
             kingRow = move.getNewRow();
         }
 
-        return !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, 1) &&     //up
-                !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 0) &&    //right
-                !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, -1) &&   //down
-                !hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 0) &&   //left
+        return hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, 1) &&     //up
+                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 0) &&    //right
+                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 0, -1) &&   //down
+                hitByRook(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 0) &&   //left
 
-                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, -1) &&  //up left
-                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, -1) &&   //up right
-                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 1) &&    //down right
-                !hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 1) &&   //down left
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, -1) &&  //up left
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, -1) &&   //up right
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, 1, 1) &&    //down right
+                hitByBishop(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow, -1, 1) &&   //down left
 
                 !hitByKnight(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) &&
                 !hitByPawn(move.getNewCol(), move.getNewRow(), king, kingCol, kingRow) &&
@@ -46,12 +46,12 @@ public class CheckScanner {
             Piece piece = board.getPiece(kingCol + (i * colVal), kingRow + (i * rowVal));
             if (piece != null && piece != board.getSelectedPiece()) {
                 if (!board.sameTeam(piece, king) && (piece.getName().equals("Rook") || piece.getName().equals("Queen"))) {
-                    return true;
+                    return false;
                 }
                 break;
             }
         }
-        return false;
+        return true;
     }
 
     private boolean hitByBishop(int col, int row, Piece king, int kingCol, int kingRow, int colVal, int rowVal) {
@@ -62,12 +62,12 @@ public class CheckScanner {
             Piece piece = board.getPiece(kingCol - (i * colVal), kingRow - (i * rowVal));
             if (piece != null && piece != board.getSelectedPiece()) {
                 if (!board.sameTeam(piece, king) && (piece.getName().equals("Bishop") || piece.getName().equals("Queen"))) {
-                    return true;
+                    return false;
                 }
                 break;
             }
         }
-        return false;
+        return true;
     }
 
     private boolean hitByKnight(int col, int row, Piece king, int kingCol, int kingRow) {

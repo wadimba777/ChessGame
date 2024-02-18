@@ -1,12 +1,13 @@
 package pieces;
 
 import logic.Board;
-import utils.ImageManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public abstract class Piece extends ImageManager {
+import static utils.ImageManager.*;
+
+public abstract class Piece {
     private int col;
     private int row;
     private int xPos, yPos;
@@ -26,7 +27,7 @@ public abstract class Piece extends ImageManager {
 
     public void setSprite(int pieceOrdinal, boolean isWhite) {
         this.sprite = getSheet()
-                .getSubimage(pieceOrdinal * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale)
+                .getSubimage(pieceOrdinal * getSheetScale(), isWhite ? 0 : getSheetScale(), getSheetScale(), getSheetScale())
                 .getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH);
     }
 

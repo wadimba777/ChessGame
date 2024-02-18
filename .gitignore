@@ -9,7 +9,7 @@
 *.nar
 hs_err_pid*
 replay_pid*
-.idea
+/.idea
 ##############################
 ## Maven
 ##############################
@@ -88,5 +88,4 @@ nb-configuration.xml
 ## Miscellaneous
 ##############################
 *.log
-/.idea/
-/.idea/
+/.idea

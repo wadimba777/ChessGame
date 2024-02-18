@@ -19,6 +19,4 @@ public class ImageManager {
     public BufferedImage getSheet() {
         return sheet;
     }
-
-
 }

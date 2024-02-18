@@ -3,7 +3,8 @@ package pieces;
 import logic.Board;
 import logic.Move;
 
-import java.awt.image.BufferedImage;
+
+import static utils.PieceNumber.KING;
 
 public class King extends Piece {
     public King(Board board, int col, int row, boolean isWhite) {
@@ -16,7 +17,7 @@ public class King extends Piece {
         this.setWhite(isWhite);
         this.setName("King");
 
-        this.setSprite(getSheet().getSubimage(0 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH));
+        this.setSprite(KING.ordinal(), isWhite);
     }
 
     @Override

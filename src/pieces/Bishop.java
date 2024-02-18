@@ -2,7 +2,7 @@ package pieces;
 
 import logic.Board;
 
-import java.awt.image.BufferedImage;
+import static utils.PieceNumber.BISHOP;
 
 public class Bishop extends Piece {
     public Bishop(Board board, int col, int row, boolean isWhite) {
@@ -15,7 +15,7 @@ public class Bishop extends Piece {
         this.setWhite(isWhite);
         this.setName("Bishop");
 
-        this.setSprite(getSheet().getSubimage(2 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH));
+        this.setSprite(BISHOP.ordinal(), isWhite);
     }
 
     @Override

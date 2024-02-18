@@ -2,7 +2,7 @@ package pieces;
 
 import logic.Board;
 
-import java.awt.image.BufferedImage;
+import static utils.PieceNumber.ROOK;
 
 public class Rook extends Piece {
     public Rook(Board board, int col, int row, boolean isWhite) {
@@ -15,7 +15,7 @@ public class Rook extends Piece {
         this.setWhite(isWhite);
         this.setName("Rook");
 
-        this.setSprite(getSheet().getSubimage(4 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH));
+        this.setSprite(ROOK.ordinal(), isWhite);
     }
 
     @Override

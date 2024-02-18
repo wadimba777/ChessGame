@@ -2,7 +2,7 @@ package pieces;
 
 import logic.Board;
 
-import java.awt.image.BufferedImage;
+import static utils.PieceNumber.KNIGHT;
 
 public class Knight extends Piece {
     public Knight(Board board, int col, int row, boolean isWhite) {
@@ -15,7 +15,7 @@ public class Knight extends Piece {
         this.setWhite(isWhite);
         this.setName("Knight");
 
-        this.setSprite(getSheet().getSubimage(3 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH));
+        this.setSprite(KNIGHT.ordinal(), isWhite);
     }
 
     @Override

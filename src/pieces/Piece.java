@@ -35,8 +35,10 @@ public abstract class Piece {
         return board;
     }
 
-    public void setSprite(Image sprite) {
-        this.sprite = sprite;
+    public void setSprite(int pieceOrdinal, boolean isWhite) {
+        this.sprite = getSheet()
+                .getSubimage(pieceOrdinal * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale)
+                .getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH);
     }
 
     public BufferedImage getSheet() {

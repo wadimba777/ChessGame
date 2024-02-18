@@ -2,7 +2,7 @@ package pieces;
 
 import logic.Board;
 
-import java.awt.image.BufferedImage;
+import static utils.PieceNumber.PAWN;
 
 public class Pawn extends Piece {
     public Pawn(Board board, int col, int row, boolean isWhite) {
@@ -15,7 +15,7 @@ public class Pawn extends Piece {
         this.setWhite(isWhite);
         this.setName("Pawn");
 
-        this.setSprite(getSheet().getSubimage(5 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH));
+        this.setSprite(PAWN.ordinal(), isWhite);
     }
 
     @Override

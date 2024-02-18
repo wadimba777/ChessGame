@@ -2,8 +2,7 @@ package pieces;
 
 import logic.Board;
 
-import java.awt.image.BufferedImage;
-
+import static utils.PieceNumber.QUEEN;
 
 public class Queen extends Piece {
     public Queen(Board board, int col, int row, boolean isWhite) {
@@ -16,12 +15,14 @@ public class Queen extends Piece {
         this.setWhite(isWhite);
         this.setName("Queen");
 
-        this.setSprite(getSheet().getSubimage(1 * sheetScale, isWhite ? 0 : sheetScale, sheetScale, sheetScale).getScaledInstance(board.getTITLE_SIZE(), board.getTITLE_SIZE(), BufferedImage.SCALE_SMOOTH));
+        this.setSprite(QUEEN.ordinal(), isWhite);
     }
 
     @Override
     public boolean isValidMovement(int col, int row) {
-        return (Math.abs(this.getCol() - col) == Math.abs(this.getRow() - row)) || (this.getCol() == col || this.getRow() == row);
+        return (Math.abs(this.getCol() - col) == Math.abs(this.getRow() - row))
+                || (this.getCol() == col
+                || this.getRow() == row);
     }
 
     @Override
